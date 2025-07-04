@@ -1,1 +1,912 @@
-sddd
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Square Bag - Neylna Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffeef8 100%);
+        }
+        
+        .product-shadow {
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .gallery-image {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-image:hover {
+            transform: scale(1.03);
+        }
+        
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        
+        .notification {
+            animation: slideIn 0.5s forwards, slideOut 0.5s forwards 2.5s;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(100%); opacity: 0; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Notification Popup -->
+    <div id="notification" class="notification fixed bottom-4 right-4 z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl p-4 max-w-xs w-full border border-pink-200">
+            <div class="flex items-start">
+                <div class="flex-shrink-0 pt-0.5">
+                    <img class="h-10 w-10 rounded-full" id="notif-avatar" src="https://cdn.wshopon.com/image/57375ffaf87edb48f9a5999f56f93e5710c277c4.webp" alt="">
+                </div>
+                <div class="ml-3 flex-1">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm font-medium text-gray-900" id="notif-name">Dewi - Karyawan</p>
+                        <button onclick="closeNotification()" class="text-gray-400 hover:text-gray-500">
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="mt-1 text-sm text-gray-500">Baru saja memesan <span class="font-semibold">Elegant Square Bag</span> dari <span id="notif-location">Bandung</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="gradient-bg sticky top-0 z-40 shadow-sm">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="https://cdn.orderonline.id/uploads/images_8057731750768190275.png" alt="Neylna Store" class="h-10 md:h-12">
+                    <span class="ml-2 text-lg md:text-xl font-bold text-pink-700">Neylna Store</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-2 bg-white px-3 py-1 rounded-full shadow">
+                        <i class="fas fa-eye text-pink-500"></i>
+                        <span class="text-sm font-medium"><span id="view-count">1,248</span> sedang melihat</span>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-2 bg-white px-3 py-1 rounded-full shadow">
+                        <i class="fas fa-shopping-bag text-pink-500"></i>
+                        <span class="text-sm font-medium"><span id="sold-count">572</span> terjual</span>
+                    </div>
+                    <a href="#order" class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-full font-medium transition duration-300 shadow-lg hover:shadow-xl">
+                        <i class="fas fa-shopping-cart mr-1"></i> Beli Sekarang
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg py-8 md:py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <h1 class="text-3xl md:text-5xl font-bold text-gray-800 leading-tight mb-4">
+                        Elegant Square Bag - Tas Wanita Elegan untuk Segala Kesempatan
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Tampil stylish dan praktis dengan tas premium yang didesain khusus untuk wanita modern. Cocok untuk bekerja, jalan-jalan, atau acara spesial.
+                    </p>
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <div class="bg-white px-4 py-2 rounded-full shadow flex items-center">
+                            <i class="fas fa-check-circle text-pink-500 mr-2"></i>
+                            <span class="text-sm">Material Premium</span>
+                        </div>
+                        <div class="bg-white px-4 py-2 rounded-full shadow flex items-center">
+                            <i class="fas fa-check-circle text-pink-500 mr-2"></i>
+                            <span class="text-sm">Banyak Ruang Penyimpanan</span>
+                        </div>
+                        <div class="bg-white px-4 py-2 rounded-full shadow flex items-center">
+                            <i class="fas fa-check-circle text-pink-500 mr-2"></i>
+                            <span class="text-sm">Desain Elegan</span>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex items-center">
+                            <span class="text-3xl font-bold text-pink-600">Rp 199.000</span>
+                            <span class="ml-3 text-lg text-gray-500 line-through">Rp 298.500</span>
+                            <span class="ml-3 bg-pink-100 text-pink-800 text-xs font-semibold px-2 py-1 rounded">33% OFF</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-1">Harga promo khusus hari ini</p>
+                    </div>
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-exclamation-circle text-yellow-400 mt-1"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-yellow-700">
+                                    <span class="font-bold">STOK TERBATAS!</span> Hanya tersisa <span id="stock-count" class="font-bold">12</span> pcs lagi. Pesan sekarang sebelum kehabisan!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="#order" class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-lg font-bold text-center transition duration-300 shadow-lg hover:shadow-xl flex-1 flex items-center justify-center">
+                            <i class="fas fa-shopping-cart mr-2"></i> BELI SEKARANG
+                        </a>
+                        <a href="#gallery" class="bg-white hover:bg-gray-50 text-gray-800 border border-gray-300 px-6 py-3 rounded-lg font-medium text-center transition duration-300 shadow hover:shadow-md flex-1 flex items-center justify-center">
+                            <i class="fas fa-images mr-2"></i> LIHAT GALERI
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative product-shadow rounded-lg overflow-hidden floating">
+                        <img src="https://cdn.wshopon.com/image/0e868a357febbeb9bb6c97a81e69374d16a82ac7.webp" alt="Elegant Square Bag" class="w-full h-auto rounded-lg">
+                        <div class="absolute top-4 right-4 bg-pink-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-pulse">
+                            HOT ITEM
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Timer -->
+    <section class="bg-pink-700 text-white py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-center">
+                <div class="flex items-center mb-2 md:mb-0 md:mr-6">
+                    <i class="fas fa-clock text-xl mr-2"></i>
+                    <span class="font-medium">Promo berakhir dalam:</span>
+                </div>
+                <div class="flex items-center space-x-2 md:space-x-4">
+                    <div class="text-center">
+                        <div class="bg-white text-pink-700 rounded-lg w-12 h-12 flex items-center justify-center text-xl font-bold" id="countdown-hours">00</div>
+                        <span class="text-xs mt-1 block">Jam</span>
+                    </div>
+                    <div class="text-xl font-bold">:</div>
+                    <div class="text-center">
+                        <div class="bg-white text-pink-700 rounded-lg w-12 h-12 flex items-center justify-center text-xl font-bold" id="countdown-minutes">00</div>
+                        <span class="text-xs mt-1 block">Menit</span>
+                    </div>
+                    <div class="text-xl font-bold">:</div>
+                    <div class="text-center">
+                        <div class="bg-white text-pink-700 rounded-lg w-12 h-12 flex items-center justify-center text-xl font-bold" id="countdown-seconds">00</div>
+                        <span class="text-xs mt-1 block">Detik</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Solution Section -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Masalah Wanita Modern & Solusi dari Elegant Square Bag</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                    <div class="flex items-start mb-4">
+                        <div class="flex-shrink-0 bg-pink-100 rounded-full p-3 mr-4">
+                            <i class="fas fa-exclamation-triangle text-pink-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Masalah Umum</h3>
+                            <p class="text-gray-600">
+                                Tas yang tidak cukup besar untuk membawa semua kebutuhan harian, atau sebaliknya terlalu besar sehingga tidak praktis. Desain yang membosankan dan material yang mudah rusak.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fas fa-times-circle text-red-400"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-600">Tas mudah kusut dan terlihat tidak rapi</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fas fa-times-circle text-red-400"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-600">Tidak ada kompartemen khusus untuk laptop atau dokumen</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fas fa-times-circle text-red-400"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-600">Desain biasa-biasa saja, tidak stylish</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-pink-50 p-6 rounded-xl border border-pink-200">
+                    <div class="flex items-start mb-4">
+                        <div class="flex-shrink-0 bg-pink-600 rounded-full p-3 mr-4">
+                            <i class="fas fa-check-circle text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Solusi Elegant Square Bag</h3>
+                            <p class="text-gray-600">
+                                Dengan desain square yang stylish dan material premium, tas ini memberikan solusi sempurna untuk wanita aktif yang ingin tampil elegan namun tetap praktis.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fas fa-check-circle text-green-500"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-600">Material tahan lama dan tidak mudah kusut</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fas fa-check-circle text-green-500"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-600">Kompartemen khusus banyak kantong organisasi</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fas fa-check-circle text-green-500"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-600">Desain elegan yang cocok untuk berbagai kesempatan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Fitur Unggulan Elegant Square Bag</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-shield-alt text-pink-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3">Material Premium</h3>
+                    <p class="text-gray-600 text-center">
+                        Dibuat dari bahan berkualitas tinggi yang tahan lama, tidak mudah kusut, dan tetap terlihat elegan dalam waktu lama.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-boxes text-pink-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3">Banyak Ruang Penyimpanan</h3>
+                    <p class="text-gray-600 text-center">
+                        Kompartemen utama yang luas, kantong khusus laptop hingga 14", serta berbagai kantong kecil untuk organisasi barang.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-palette text-pink-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3">Desain Multifungsi</h3>
+                    <p class="text-gray-600 text-center">
+                        Cocok untuk berbagai kesempatan, dari ke kantor, meeting penting, hingga jalan-jalan santai dengan teman.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-lock text-pink-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3">Zipper Kuat</h3>
+                    <p class="text-gray-600 text-center">
+                        Resleting premium yang halus dan kuat, tidak mudah macet atau rusak meski digunakan setiap hari.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-weight-hanging text-pink-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3">Ringan & Nyaman</h3>
+                    <p class="text-gray-600 text-center">
+                        Meski memiliki banyak ruang, tas ini tetap ringan dan nyaman dibawa seharian tanpa membuat bahu pegal.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300">
+                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-gem text-pink-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3">Detail Mewah</h3>
+                    <p class="text-gray-600 text-center">
+                        Sentuhan detail metalik dan jahitan rapi yang membuat tas ini terlihat lebih premium dan elegan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Galeri Produk</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="gallery-image rounded-lg overflow-hidden cursor-pointer" onclick="openModal('https://cdn.wshopon.com/image/57375ffaf87edb48f9a5999f56f93e5710c277c4.webp')">
+                    <img src="https://cdn.wshopon.com/image/57375ffaf87edb48f9a5999f56f93e5710c277c4.webp" alt="Elegant Square Bag" class="w-full h-full object-cover transition duration-300 hover:scale-105">
+                </div>
+                <div class="gallery-image rounded-lg overflow-hidden cursor-pointer" onclick="openModal('https://cdn.wshopon.com/image/5de996a570ea9d5e29f303a919c03c21fbc83e46.webp')">
+                    <img src="https://cdn.wshopon.com/image/5de996a570ea9d5e29f303a919c03c21fbc83e46.webp" alt="Elegant Square Bag" class="w-full h-full object-cover transition duration-300 hover:scale-105">
+                </div>
+                <div class="gallery-image rounded-lg overflow-hidden cursor-pointer" onclick="openModal('https://cdn.wshopon.com/image/de64b11e5e937a9b7d2cc8e60603f4c4775b979b.webp')">
+                    <img src="https://cdn.wshopon.com/image/de64b11e5e937a9b7d2cc8e60603f4c4775b979b.webp" alt="Elegant Square Bag" class="w-full h-full object-cover transition duration-300 hover:scale-105">
+                </div>
+                <div class="gallery-image rounded-lg overflow-hidden cursor-pointer" onclick="openModal('https://cdn.wshopon.com/image/9076129f56dff46d8b6c364299c4b111f08fd068.webp')">
+                    <img src="https://cdn.wshopon.com/image/9076129f56dff46d8b6c364299c4b111f08fd068.webp" alt="Elegant Square Bag" class="w-full h-full object-cover transition duration-300 hover:scale-105">
+                </div>
+                <div class="gallery-image rounded-lg overflow-hidden cursor-pointer" onclick="openModal('https://cdn.wshopon.com/image/f777a9d488cb7dfe940ed5c4aac748f43431e53b.webp')">
+                    <img src="https://cdn.wshopon.com/image/f777a9d488cb7dfe940ed5c4aac748f43431e53b.webp" alt="Elegant Square Bag" class="w-full h-full object-cover transition duration-300 hover:scale-105">
+                </div>
+                <div class="gallery-image rounded-lg overflow-hidden cursor-pointer" onclick="openModal('https://cdn.wshopon.com/image/55ed709de3765dae40fd74e27d4813055a1c42dd.webp')">
+                    <img src="https://cdn.wshopon.com/image/55ed709de3765dae40fd74e27d4813055a1c42dd.webp" alt="Elegant Square Bag Size" class="w-full h-full object-cover transition duration-300 hover:scale-105">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-75">
+        <div class="relative max-w-4xl w-full p-4">
+            <button onclick="closeModal()" class="absolute -top-10 right-0 text-white hover:text-gray-300">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <img id="modalImage" src="" alt="" class="w-full h-auto max-h-screen rounded-lg">
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Apa Kata Mereka?</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-8">
+                Lihat apa yang dikatakan pelanggan kami tentang Elegant Square Bag. Ribuan wanita sudah membuktikan kualitasnya!
+            </p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="testimonial-card bg-white p-6 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold bg-pink-500">D</div>
+                        <div class="ml-3">
+                            <h4 class="font-semibold">Dewi - Karyawan</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "Tasnya sangat elegan dan kualitasnya premium. Cocok banget untuk ke kantor atau meeting. Banyak kantongnya jadi barang-barang bisa tertata rapi. Worth it banget harganya!"
+                    </p>
+                </div>
+                
+                <div class="testimonial-card bg-white p-6 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold bg-purple-500">R</div>
+                        <div class="ml-3">
+                            <h4 class="font-semibold">Rina - Pengusaha</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "Saya suka banget sama desainnya yang simple tapi elegant. Materialnya juga kuat dan tidak mudah kotor. Sudah dipakai 3 bulan masih seperti baru. Packagingnya juga rapi banget."
+                    </p>
+                </div>
+                
+                <div class="testimonial-card bg-white p-6 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold bg-blue-500">S</div>
+                        <div class="ml-3">
+                            <h4 class="font-semibold">Sari - Mahasiswa</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "Tas ini multifungsi banget, bisa buat kuliah, jalan-jalan, atau bahkan acara formal. Ukurannya pas tidak terlalu besar tapi muat banyak. Warna hitamnya juga klasik dan mudah dipadukan dengan outfit apa saja."
+                    </p>
+                </div>
+                
+                <div class="testimonial-card bg-white p-6 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold bg-green-500">L</div>
+                        <div class="ml-3">
+                            <h4 class="font-semibold">Lina - Ibu Rumah Tangga</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "Pengiriman cepat dan packing aman. Tasnya sangat berkualitas dengan harga yang terjangkau. Saya beli 2 untuk hadiah saudara dan dia sangat suka. Akan beli lagi warna lain nanti."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="order" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl shadow-lg overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Elegant Square Bag</h2>
+                        <div class="mb-4">
+                            <span class="text-3xl font-bold text-pink-600">Rp 199.000</span>
+                            <span class="ml-3 text-lg text-gray-500 line-through">Rp 298.500</span>
+                            <span class="ml-3 bg-pink-100 text-pink-800 text-sm font-semibold px-2 py-1 rounded">33% OFF</span>
+                        </div>
+                        
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-circle text-yellow-400 mt-1"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-yellow-700">
+                                        <span class="font-bold">PROMO KHUSUS HARI INI!</span> Gratis ongkir untuk pembayaran transfer hari ini. Stok terbatas!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Material premium tahan lama</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Kompartemen laptop hingga 14"</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Desain elegan untuk berbagai kesempatan</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Garansi 6 bulan terhadap cacat produksi</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="flex items-center text-sm text-gray-500 mb-6">
+                            <i class="fas fa-shipping-fast mr-2"></i>
+                            <span>Dikirim dari Jakarta - Estimasi 2-5 hari kerja</span>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-1/2 bg-white p-6 md:p-8">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Form Pemesanan</h3>
+                        <p class="text-gray-600 mb-6">Isi data diri Anda dengan benar untuk proses pemesanan</p>
+                        
+                        <!-- OrderOnline Embed Form -->
+                        <div class="ooef">
+                            <form class="orderonline-embed-form" data-username="vera" data-product-slug="elegant-square-bag" data-product-id="6865263d119d47028100e411" id="oo-embed-form-elegant-square-bag-570" data-origin="orderonline">
+                                <div class="ooef-loader"><style>.ooef-loader{visibility: hidden;opacity: 0;position: absolute;left: 0;right: 0;top: 0;bottom: 0;display: flex;justify-content: center;align-items: center;flex-direction: column;animation: ooLoadingIn 10s ease;-webkit-animation: ooLoadingIn 10s ease;animation-fill-mode: forwards;overflow: hidden}@keyframes ooLoadingIn{0%{visibility: hidden;opacity: 0}20%{visibility: visible;opacity: 0}100%{visibility: visible;opacity: 1}}@-webkit-keyframes ooLoadingIn{0%{visibility: hidden;opacity: 0}20%{visibility: visible;opacity: 0}100%{visibility: visible;opacity: 1}}.ooef-loader>div,.ooef-loader>div:after{border-radius: 50%;width: 2.5rem;height: 2.5rem}.ooef-loader>div{font-size: 10px;position: relative;text-indent: -9999em;border: .25rem solid #f5f5f5;border-left: .25rem solid #55c4cf;-webkit-transform: translateZ(0);-ms-transform: translateZ(0);transform: translateZ(0);-webkit-animation: ooLoading 1.1s infinite linear;animation: ooLoading 1.1s infinite linear}.ooef-loader.error>div{border-left: .25rem solid #ff4500;animation-duration: 5s}@-webkit-keyframes ooLoading{0%{-webkit-transform: rotate(0);transform: rotate(0)}100%{-webkit-transform: rotate(360deg);transform: rotate(360deg)}}@keyframes ooLoading{0%{-webkit-transform: rotate(0);transform: rotate(0)}100%{-webkit-transform: rotate(360deg);transform: rotate(360deg)}}</style><div aria-live="polite" role="status"><div>Loading...</div></div></div>
+                            </form>
+                        </div>
+                        <script>
+                            if (typeof xLogError != 'function') {
+                                var xLogError = function (error) {
+                                    var req = new XMLHttpRequest();
+                                    var payload = JSON.stringify({ url: document.location.href, line: error.line, stack: error.stack });
+                                    var params = 'message=' + encodeURIComponent(error.name) + '&payload=' + encodeURIComponent(payload) + '&type=embed&level=error';
+                                    req.open('POST', 'https://api.orderonline.id/log', true);
+                                    req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                                    req.send(params);
+                                };
+                            }
+                            try {
+                                if (typeof xEmbedScript != 'function') {
+                                    var xEmbedScript = function () {
+                                        !function(w, d, e, v, id, t, s) {
+                                            if (d.getElementById(id)) return;
+                                            t = d.createElement(e);t.async = !0;t.src = v;t.id = id;
+                                            s = d.getElementsByTagName(e)[0];
+                                            s.parentNode.insertBefore(t, s);
+                                        }(window, document, 'script', 'https://cdn.orderonline.id/js/embed-v2-slim.min.js?v=8.0.4', 'oo-embed-js');
+                                    };
+                                }
+                                if (typeof xEmbedInit != 'function') {
+                                    var xEmbedInit = function (w, n) {
+                                        if (w.ooe) return;
+                                        n = w.ooe = function() { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) };
+                                        if (!w._ooe) w._ooe = n;
+                                        n.push = n;n.loaded = !0;n.version = '8.0.4';n.queue = [];
+                                    };
+                                }
+                                xEmbedInit(window);
+                                ooe('setup', 'redirect', 'https://vera.orderonline.id');
+                                ooe('init', '5f1a7807a9bf807d6c63d963', '6865263d119d47028100e411', '6865263d119d47028100e412', 'oo-embed-form-elegant-square-bag-570', {"mode":"page","action":"Klik untuk pemesanan","title":"Form Pemesanan","triggerPixel":true,"triggerGtm":false});
+                                if (!window.jQuery) {
+                                    !function(w, d, e, v, id, t, s) {
+                                        if (d.getElementById(id)) return;
+                                        t = d.createElement(e);t.async = !0;t.src = v;t.id = id;
+                                        t.addEventListener('load', xEmbedScript);
+                                        s = d.getElementsByTagName(e)[0];
+                                        s.parentNode.insertBefore(t, s);
+                                    }(window, document, 'script', 'https://cdn.orderonline.id/js/vendor/jquery.min.js', 'oo-embed-jquery');
+                                } else {
+                                    xEmbedScript();
+                                }
+                            } catch (e) {
+                                xLogError(e);
+                                throw e;
+                            }
+                        </script>
+                        <!-- End OrderOnline Embed Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Pertanyaan yang Sering Diajukan</h2>
+            
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <button onclick="toggleFAQ(1)" class="flex items-center justify-between w-full text-left">
+                        <h3 class="text-lg font-semibold text-gray-800">Apa saja yang termasuk dalam paket pembelian?</h3>
+                        <i class="fas fa-chevron-down text-pink-500 transition-transform duration-300" id="faq-icon-1"></i>
+                    </button>
+                    <div id="faq-content-1" class="mt-3 text-gray-600 hidden">
+                        <p>Setiap pembelian Elegant Square Bag akan mendapatkan:</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>1 unit Elegant Square Bag</li>
+                            <li>Dust bag untuk penyimpanan</li>
+                            <li>Kartu garansi 6 bulan</li>
+                            <li>Struk pembelian</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <button onclick="toggleFAQ(2)" class="flex items-center justify-between w-full text-left">
+                        <h3 class="text-lg font-semibold text-gray-800">Berapa lama waktu pengiriman?</h3>
+                        <i class="fas fa-chevron-down text-pink-500 transition-transform duration-300" id="faq-icon-2"></i>
+                    </button>
+                    <div id="faq-content-2" class="mt-3 text-gray-600 hidden">
+                        <p>Waktu pengiriman bervariasi tergantung lokasi:</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>Jabodetabek: 1-2 hari kerja</li>
+                            <li>Pulau Jawa: 2-3 hari kerja</li>
+                            <li>Luar Jawa: 3-5 hari kerja</li>
+                            <li>Indonesia Timur: 4-7 hari kerja</li>
+                        </ul>
+                        <p class="mt-2">*Estimasi setelah pembayaran dikonfirmasi</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <button onclick="toggleFAQ(3)" class="flex items-center justify-between w-full text-left">
+                        <h3 class="text-lg font-semibold text-gray-800">Apakah ada garansi untuk produk ini?</h3>
+                        <i class="fas fa-chevron-down text-pink-500 transition-transform duration-300" id="faq-icon-3"></i>
+                    </button>
+                    <div id="faq-content-3" class="mt-3 text-gray-600 hidden">
+                        <p>Ya, kami memberikan garansi 6 bulan terhadap cacat produksi. Garansi tidak berlaku untuk:</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>Kerusakan akibat penggunaan tidak wajar</li>
+                            <li>Kerusakan karena bencana alam atau faktor eksternal</li>
+                            <li>Perubahan warna karena paparan sinar matahari langsung secara terus-menerus</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <button onclick="toggleFAQ(4)" class="flex items-center justify-between w-full text-left">
+                        <h3 class="text-lg font-semibold text-gray-800">Bagaimana cara perawatan tas ini?</h3>
+                        <i class="fas fa-chevron-down text-pink-500 transition-transform duration-300" id="faq-icon-4"></i>
+                    </button>
+                    <div id="faq-content-4" class="mt-3 text-gray-600 hidden">
+                        <p>Untuk menjaga kualitas tas, kami merekomendasikan:</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>Bersihkan dengan lap microfiber yang sedikit dibasahi</li>
+                            <li>Hindari penggunaan bahan kimia atau deterjen keras</li>
+                            <li>Simpan dalam dust bag ketika tidak digunakan</li>
+                            <li>Jauhkan dari sumber panas langsung</li>
+                            <li>Untuk noda membandel, gunakan sabun lembut khusus kulit</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-12 bg-pink-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Jangan Lewatkan Kesempatan Ini!</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                Dapatkan Elegant Square Bag dengan harga spesial hari ini dan gratis ongkir untuk pembayaran transfer!
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#order" class="bg-white hover:bg-gray-100 text-pink-600 px-8 py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <i class="fas fa-shopping-cart mr-2"></i> BELI SEKARANG
+                </a>
+                <a href="#gallery" class="bg-pink-800 hover:bg-pink-900 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <i class="fas fa-images mr-2"></i> LIHAT GALERI
+                </a>
+            </div>
+            
+            <div class="mt-8 bg-pink-700 rounded-lg p-4 max-w-2xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center justify-center">
+                    <div class="flex items-center mb-4 md:mb-0 md:mr-6">
+                        <i class="fas fa-clock text-2xl mr-2"></i>
+                        <span class="font-medium">Promo berakhir dalam:</span>
+                    </div>
+                    <div class="flex items-center space-x-2 md:space-x-4">
+                        <div class="text-center">
+                            <div class="bg-white text-pink-700 rounded-lg w-12 h-12 flex items-center justify-center text-xl font-bold" id="countdown-hours-2">00</div>
+                            <span class="text-xs mt-1 block">Jam</span>
+                        </div>
+                        <div class="text-xl font-bold">:</div>
+                        <div class="text-center">
+                            <div class="bg-white text-pink-700 rounded-lg w-12 h-12 flex items-center justify-center text-xl font-bold" id="countdown-minutes-2">00</div>
+                            <span class="text-xs mt-1 block">Menit</span>
+                        </div>
+                        <div class="text-xl font-bold">:</div>
+                        <div class="text-center">
+                            <div class="bg-white text-pink-700 rounded-lg w-12 h-12 flex items-center justify-center text-xl font-bold" id="countdown-seconds-2">00</div>
+                            <span class="text-xs mt-1 block">Detik</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <img src="https://cdn.orderonline.id/uploads/images_8057731750768190275.png" alt="Neylna Store" class="h-10">
+                    <span class="ml-2 text-lg font-bold">Neylna Store</span>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-pink-400 transition duration-300">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-pink-400 transition duration-300">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-pink-400 transition duration-300">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-6 pt-6 text-center text-gray-400 text-sm">
+                <p>&copy; 2023 Neylna Store. All rights reserved.</p>
+                <p class="mt-2">Tas wanita premium dengan kualitas terbaik dan harga terjangkau.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Generate avatar with initials
+        function getAvatarInitials(name) {
+            const names = name.split(' ');
+            let initials = names[0].substring(0, 1).toUpperCase();
+            if (names.length > 1) {
+                initials += names[1].substring(0, 1).toUpperCase();
+            }
+            const colors = ['bg-pink-500', 'bg-purple-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-red-500'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            return `<div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold ${color}">${initials}</div>`;
+        }
+
+        // Dynamic counters
+        function animateCounter(elementId, target, duration = 2000) {
+            const element = document.getElementById(elementId);
+            const start = parseInt(element.textContent.replace(/,/g, ''));
+            const increment = target / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    clearInterval(timer);
+                    current = target;
+                }
+                element.textContent = Math.floor(current).toLocaleString();
+            }, 16);
+        }
+        
+        // Random notification
+        const names = ['Dewi', 'Sari', 'Rina', 'Lina', 'Maya', 'Nina', 'Tina', 'Dina'];
+        const locations = ['Jakarta', 'Bandung', 'Surabaya', 'Medan', 'Makassar', 'Yogyakarta', 'Semarang', 'Bali', 'Lampung', 'Palembang'];
+        const products = ['Elegant Square Bag', 'Tas Wanita Elegan', 'Tas Kerja Premium', 'Tas Fashion Square', 'Tas Cantik Multifungsi'];
+        const actions = ['membeli', 'memesan', 'mendapatkan', 'mengorder', 'mengambil'];
+        
+        function showRandomNotification() {
+            const notification = document.getElementById('notification');
+            const nameElement = document.getElementById('notif-name');
+            const locationElement = document.getElementById('notif-location');
+            const avatarElement = document.getElementById('notif-avatar');
+            const notifText = document.querySelector('#notification .text-gray-500');
+            
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+            const randomProduct = products[Math.floor(Math.random() * products.length)];
+            const randomAction = actions[Math.floor(Math.random() * actions.length)];
+            const firstName = randomName;
+            
+            avatarElement.innerHTML = getAvatarInitials(firstName);
+            nameElement.textContent = randomName;
+            locationElement.textContent = randomLocation;
+            notifText.innerHTML = `Baru saja ${randomAction} <span class="font-semibold">${randomProduct}</span> dari <span id="notif-location">${randomLocation}</span>`;
+            
+            notification.classList.remove('hidden');
+            
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 3000);
+        }
+        
+        function closeNotification() {
+            document.getElementById('notification').classList.add('hidden');
+        }
+        
+        // Countdown timer
+        function updateCountdown() {
+            const now = new Date();
+            const endOfDay = new Date();
+            endOfDay.setHours(23, 59, 59, 999);
+            
+            const diff = endOfDay - now;
+            
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('countdown-seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            document.getElementById('countdown-hours-2').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('countdown-minutes-2').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('countdown-seconds-2').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Image modal
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            
+            modalImage.src = imageSrc;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // FAQ toggle
+        function toggleFAQ(index) {
+            const content = document.getElementById(`faq-content-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate counters
+            animateCounter('view-count', 1850);
+            animateCounter('sold-count', 890);
+            animateCounter('stock-count', 8);
+            
+            // Set up countdown timer
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+            // Show random notification after 3 seconds
+            setTimeout(showRandomNotification, 3000);
+            
+            // Show notifications periodically
+            setInterval(showRandomNotification, 15000);
+            
+            // Close modal when clicking outside
+            document.getElementById('imageModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
